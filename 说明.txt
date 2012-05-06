@@ -1,2 +1,7 @@
 调度模拟器是用Python编写而成的，可以自动生成进程序列，收集模拟结果数据，还可以灵活地添加新的调度器进行测试。
 
+todo:
+finish scheduler
+finish config
+
+

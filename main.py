@@ -85,15 +85,19 @@ def ParseArg():
 
 
 if __name__ == "__main__":
+    #----------------------------------------------
+    ## 解析命令行
+    # todo: 还没有实现，需要能够选择配置文件，配置一些基本的设置
     ParseArg()
     report_collector = ReportCollector(res)
+    
     #----------------------------------------------
-    ## Start
+    ## 开始
     log.log_start()
     log.log(conf)
     
     #----------------------------------------------
-    ## Generate tasks
+    ## 生成进程序列
     log.log_section()
     if conf.LOAD_TASKS:
         log.log(TRANS.M_LOAD_TASKS)
@@ -114,12 +118,13 @@ if __name__ == "__main__":
         pass
     
     #----------------------------------------------
-    ## Generate Scheduler
+    ## 选择调度器
+    # todo:这里可以改进
     res.gSCHEDULER = Scheduler(res)
     
     
     #----------------------------------------------
-    ## Simulate
+    ## 模拟
     report_collector.collect_start()
     log.log_section()
     log.log(TRANS.M_SIMULATION_START)
@@ -132,13 +137,13 @@ if __name__ == "__main__":
     log.log(TRANS.M_SIMULATION_END)
     
     #----------------------------------------------
-    ## Collect tasks
+    ## 收集进程
     log.log_section()
     log.log(TRANS.M_COLLECT_TASK)
     
     
     #----------------------------------------------
-    ## Make sure tasks are sorted by start time
+    ## 确保完成的进程以开始时间排序
     def cmp_tasks(taskA, taskB):
         ret = cmp(taskA.start_jiffies, taskB.start_jiffies)
         if ret == 0:
@@ -151,9 +156,7 @@ if __name__ == "__main__":
         pass
     
     #----------------------------------------------
-    ## Collect report
-    
-    
+    ## 收集报告
     log.log_section()
     log.log(TRANS.M_COLLECT_REPORT)
     report_collector.collect(res.gTASKS_FINISHED)
@@ -164,6 +167,6 @@ if __name__ == "__main__":
         report_collector.record_task_list(res.gTASKS_FINISHED,conf.TASKS_RECORD_FILE)
     
     #----------------------------------------------
-    ## End
+    ## 结束
     log.log_end()
     
